@@ -11,7 +11,11 @@ Firebase
 Jquery
 Google Maps API
 Razor Payment Gateway API
-
-1.Main Page
-<img src="image/index.jpg"></img>
+<p><b>Team Name-</b></p>-Magenta
+<p>Members</p>
+<ol>
+<li>Atul Kumar Agrawal</li>
+<li>Bijayee Saswata Pradhan</li>
+</ol>
+<p>
 
