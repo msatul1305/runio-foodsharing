@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title Page-->
+    <title>User Details</title>
+
+    <!-- Icons font CSS-->
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+   
+    <!-- <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+    <!-- <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" /> -->
+    <script src="firebase.js"></script>
+    <!-- <script src="login.js"></script> -->
+
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/main.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+        <div class="wrapper wrapper--w960">
+            <div class="card card-2">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">User Info</h2>
+                    <div>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="Name" name="name"  id="name">
+                        </div>
+                                <div class="input-group">
+                                <input class="input--style-2" type="text" placeholder="Email id" name="email" id="email">
+                        </div>
+                        <div class="input-group">
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <input class="input--style-2" type="text" placeholder="address" name="address" id="address">
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div>
+                                <div class="input-group">
+                                    <input class="input--style-2" type="text" placeholder="City" name="city" id=city>
+                                </div>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="State" name="state" id="state">
+                        </div>  
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="Country" name="country" id="country">
+                        </div> 
+                        <div class="p-t-30">
+                            <button class="btn btn--radius btn--green" type="submit" onclick="writeUserData()">Continue -></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+</body>
+        <script>
+            function writeUserData() {
+                var database = firebase.database();
+                var name=document.getElementById('name').value;
+                var email=document.getElementById('email').value;
+                var address=document.getElementById('address').value;
+                var city=document.getElementById('city').value;
+                var state=document.getElementById('state').value;
+                var country=document.getElementById('country').value;
+                        firebase.database().ref('users/' + name).set({
+                        name: name,
+                        email: email,
+                        address: address,
+                        city: city,
+                        state: state,
+                        country: country
+  });
+  window.location.href='list.html';
+
+}
+        </script>
+
+</html>
+<!-- end document-->

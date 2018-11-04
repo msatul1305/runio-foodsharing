@@ -1,0 +1,97 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Location</title>
+        <link href="styledesc.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet" media="all">
+    </head>
+    <body>
+        <h1>Item Details</h1>
+        <div class="container">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="panel panel-default text-center">
+                  <div class="panel-heading">
+                    <h1>Basic</h1>
+                  </div>
+                  <div class="panel-body">
+                    <p id="name">Name:</p>
+                    <p id="desc">Description:</p>
+                    <p id="status">Status:</p>
+                    <p id="cost">Cost:</p>                  </div>
+                  <div class="panel-footer">
+                    <h3>Rs.120</h3>
+                    <!-- <h4>per month</h4> -->
+                    <button class="btn btn-lg" onclick="load()">Buy Now</button>
+                  </div>
+                </div> 
+              </div>
+              <div class="col-sm-6" id="map" class="panel panel-default panel-footer">
+              </div>  
+            </div>
+          </div>
+    <script>
+        // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var map, infoWindow;
+      function initMap() {
+        var myLatLng = {lat:  -34.397, lng: 150.644};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom:6          
+        });
+        infoWindow = new google.maps.InfoWindow;
+      // Try HTML5 geolocation.
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+            
+      }
+      var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'You are Here!'
+  });
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+      </script>
+       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFa0hD5_Yab6cpX59pRYEdvnG9gL2lsCE&callback=initMap"
+       async defer></script>
+       <!-- <button class="block" onclick="load()">Next</button> -->
+       </button>
+       <script>
+           function load(){
+            window.location.href='next.html';
+           }
+        
+       </script>
+           <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+           <script src="assets/js/bootstrap.min.js"></script>
+
+          </body>
+    </html>

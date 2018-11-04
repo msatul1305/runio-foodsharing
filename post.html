@@ -1,0 +1,138 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+
+    <title>Food Sharing</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/cover.css" rel="stylesheet">
+    <script src="assets/js/jquery-2.2.4.js"></script>
+    <script src="assets/js/push.js"></script>
+
+  </head>
+
+  <body class="text-center" style="background: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url('assets/img/map.jpg');">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">Cover</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="login.html">Login</a>
+          </nav>
+        </div>
+      </header>
+
+     <div>
+         <input type="text" id="h1" placeholder="Name"/>
+         <input type="number" name="h2" id="data" placeholder="Quantity of food available in number"/>
+         <input type="number" id="contact" placeholder="Contact number">
+         <button onclick="submitD()" type="submit" id="notify-button">submit</button>
+     </div>
+     <div>
+       
+       <p id="demo"></p>
+       <p id="mapholder" style="color:white;"></p>
+        
+     </div>
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>&copy; 2018 Food Sharing App</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+            var x = document.getElementById("demo");
+            var lat = "";
+            
+      function submitD(){
+        // Get a reference to the database service
+      var database = firebase.database();
+      var h1 = document.getElementById("h1").value;
+      var h2 = document.getElementById("data").value;
+      getLocation();
+      console.log('hvhv'+lat);
+      
+      firebase.database().ref('recent/' + h1).set({
+        name: h1,
+        data: h2,
+        status: "Available",
+        location: lat
+      });
+
+        Push.create("New Message",{
+            body: h1,
+       
+            timeout: 2000,
+            onClick: function () {
+                window.focus();
+                this.close();
+            }
+        });
+
+        function getLocation() {
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition,showError);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function showPosition(position) {
+          var latlon = position.coords.latitude + "," + position.coords.longitude;
+           lat = position.coords.latitude;
+            var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyCFa0hD5_Yab6cpX59pRYEdvnG9gL2lsCE";
+
+            document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>"; 
+        }
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Location information is unavailable."
+                    break;
+                case error.TIMEOUT:
+                    x.innerHTML = "The request to get user location timed out."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    x.innerHTML = "An unknown error occurred."
+                    break;
+            }
+        }
+      }
+      
+
+
+
+    </script>
+    
+<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+<script src="assets/js/firebase.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="assets/js/jquery-slim.min.js"><\/script>')</script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+
+  </body>
+
+</html>

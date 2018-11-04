@@ -1,0 +1,89 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+
+    <title>Food Sharing</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/cover.css" rel="stylesheet">
+
+    <style>
+        button{
+            background-color: green;
+            color: white;
+            font-weight: 800;
+        }
+    </style>
+  </head>
+
+  <body class="text-center">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">Cover</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="login.html">Login</a>
+          </nav>
+        </div>
+      </header>
+
+
+      <div>
+          <p id="datas">Recent Publish Requirements</p>
+      </div>
+      <table id="tBody">
+        <thead>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Status</td>
+            
+        </thead>
+      </table>
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>&copy; 2018 Food Sharing App</p>
+        </div>
+      </footer>
+    </div>
+
+    
+<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+<script src="assets/js/firebase.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="assets/js/jquery-slim.min.js"><\/script>')</script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+  </body>
+  
+  <script>
+        var headingRef=firebase.database().ref().child("recent");
+        headingRef.on('child_added',function(datasnapshot){
+        
+        var name = datasnapshot.child("name").val();
+        var desc = datasnapshot.child("data").val();
+        var status = datasnapshot.child("status").val();
+        if(status == "Available"){
+        $("#tBody").append("<tr><td>"+name+"</td><td>"+desc+"</td><td>"+status+"</td><td><button><a href='map.html'>Order Now</a></button></td></tr>");
+    }
+    else{
+        $("#tBody").append("<tr><td>"+name+"</td><td>"+desc+"</td><td>"+status+"</td><td><button>Out of Stock</button></td></tr>");
+    }      
+});
+    </script>
+</html>
